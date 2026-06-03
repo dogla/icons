@@ -39,8 +39,6 @@
 	</properties>
 
 	<build>
-		<finalName>${project.groupId}.${project.artifactId}_${project.version}</finalName>
-
 		<!-- The iconify/ folder is a developer-time cache, populated when
 		     the BannerGenerator runs against api.iconify.design. The library
 		     itself must never ship those SVGs - bundling is the application
