@@ -40,6 +40,20 @@
 
 	<build>
 		<finalName>${project.groupId}.${project.artifactId}_${project.version}</finalName>
+
+		<!-- The iconify/ folder is a developer-time cache, populated when
+		     the BannerGenerator runs against api.iconify.design. The library
+		     itself must never ship those SVGs - bundling is the application
+		     developer's job, not ours. -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>iconify/**</exclude>
+				</excludes>
+			</resource>
+		</resources>
+
 		<plugins>
 			<plugin>
 				<groupId>com.mycila</groupId>
@@ -93,6 +107,13 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
 				<version>3.3.1</version>
+				<configuration>
+					<!-- Mirror the exclude from <resources> so the sources jar
+					     does not ship the dev iconify cache either. -->
+					<excludes>
+						<exclude>iconify/**</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -195,9 +216,14 @@
 						<executions>
 							<execution>
 								<id>add-dev-source</id>
-								<phase>generate-sources</phase>
+								<phase>generate-test-sources</phase>
 								<goals>
-									<goal>add-source</goal>
+									<!-- add-test-source (not add-source) so dev classes land
+									     in target/test-classes/, not target/classes/. Otherwise
+									     Eclipse's auto-build would place BannerGenerator and
+									     friends next to the production classes and they'd end
+									     up in the published JAR. -->
+									<goal>add-test-source</goal>
 								</goals>
 								<configuration>
 									<sources>
