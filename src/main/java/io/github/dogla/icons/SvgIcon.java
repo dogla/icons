@@ -111,7 +111,14 @@ public class SvgIcon implements ColorableIcon {
 	}
 
 	/**
-	 * Processes SVG colors: sets the fill attribute and replaces currentColor references.
+	 * Applies the foreground color to the SVG: injects a {@code fill="..."}
+	 * attribute on the root {@code <svg>} element and substitutes any
+	 * {@code currentColor} references.
+	 *
+	 * @param svg the raw SVG XML
+	 * @param fg  the foreground color as a CSS hex string (e.g.
+	 *            {@code "#ff0000"}); {@code null} falls back to black
+	 * @return the SVG with the foreground color applied
 	 */
 	protected String processSvgColors(String svg, String fg) {
 		String effectiveColor = (fg != null) ? fg : "#000000"; //$NON-NLS-1$
