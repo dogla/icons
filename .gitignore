@@ -26,3 +26,6 @@
 # OS
 .DS_Store
 Thumbs.db
+
+# Maintainer-only notes
+/notes/
