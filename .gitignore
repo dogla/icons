@@ -1,0 +1,28 @@
+# Maven
+/target/
+/bin/
+
+# Eclipse
+/.classpath
+/.project
+/.settings/
+
+# IntelliJ
+/.idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code
+/.vscode/
+
+# Java
+*.class
+
+# Iconify cache — never check downloaded SVGs into this library.
+# The bundle workflow is for *applications* using the lib, not the lib itself.
+/src/main/resources/iconify/
+
+# OS
+.DS_Store
+Thumbs.db
