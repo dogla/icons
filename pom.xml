@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.dogla</groupId>
 	<artifactId>icons</artifactId>
-	<version>1.1.0</version>
+	<version>1.1.1-SNAPSHOT</version>
 
 	<name>Icons</name>
 	<description>Icon abstraction and factory SPI for Java desktop applications.</description>
