@@ -93,9 +93,12 @@ public class DefaultIconFactory implements IconFactory {
 				}
 			}
 
-			// Base64
-			if (s.length() > 16 && BASE64_PATTERN.matcher(s).find()) {
-				return new Base64Icon(s);
+			// Base64 — strip whitespace first: MIME-wrapped values embed line breaks
+			// (RFC 2045 wraps at 76 chars), which the strict pattern and Base64.getDecoder()
+			// would otherwise reject
+			String compact = s.replaceAll("\\s+", "");
+			if (compact.length() > 16 && BASE64_PATTERN.matcher(compact).find()) {
+				return new Base64Icon(compact);
 			}
 		}
 

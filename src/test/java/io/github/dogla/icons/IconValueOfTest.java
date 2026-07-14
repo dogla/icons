@@ -66,6 +66,20 @@ class IconValueOfTest {
 		assertInstanceOf(Base64Icon.class, icon);
 	}
 
+	/** MIME-wrapped Base64 embeds line breaks (RFC 2045 wraps at 76 chars) — detection must
+	 *  strip whitespace and the icon must decode. */
+	@Test
+	void base64StringWithLineBreaksBecomesDecodableBase64Icon() {
+		StringBuilder wrapped = new StringBuilder();
+		for (int i = 0; i < PNG_1X1_BASE64.length(); i += 20) {
+			wrapped.append(PNG_1X1_BASE64, i, Math.min(i + 20, PNG_1X1_BASE64.length())).append("\r\n");
+		}
+		Icon icon = Icon.valueOf(wrapped.toString());
+		assertInstanceOf(Base64Icon.class, icon);
+		assertEquals(java.util.Base64.getDecoder().decode(PNG_1X1_BASE64).length,
+				((Base64Icon) icon).toBytes().length);
+	}
+
 	@Test
 	void prefixedStringBecomesIconifyIcon() {
 		Icon icon = Icon.valueOf("fa6-solid:heart");
